@@ -39,3 +39,24 @@ func TestLevelTest(t *testing.T) {
 		t.Error("D is not showing as level 6")
 	}
 }
+
+func TestFromChar(t *testing.T) {
+	fromD, err := fromChar("D")
+	if err != nil {
+		t.Error("From char gave an error")
+		t.Fail()
+	}
+	if !romanFiveHundred.equals(fromD) {
+		t.Error("FiveHundred could not be made from D")
+		t.Fail()
+	}
+	fromX, err := fromChar("X")
+	if err != nil {
+		t.Error("From char gave an error")
+		t.Fail()
+	}
+	if romanHundred.equals(fromX) {
+		t.Error("Hundred should not be made from X")
+		t.Fail()
+	}
+}

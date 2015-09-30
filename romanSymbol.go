@@ -1,6 +1,7 @@
 package roman
 
 import (
+	"errors"
 	"math"
 )
 
@@ -12,24 +13,12 @@ var (
 	romanHundred     = romanSymbol{100, "C"}
 	romanFiveHundred = romanSymbol{500, "D"}
 	romanThousand    = romanSymbol{1000, "M"}
-	romanDict        = DefaultRomanDictionary()
+	romanDict        = defaultRomanDictionary()
 )
 
 type romanDictionary []romanSymbol
 
-func (slice romanDictionary) Less(i, j int) bool {
-	return slice[i].value < slice[j].value
-}
-
-func (slice romanDictionary) Len() int {
-	return len(slice)
-}
-
-func (slice romanDictionary) Swap(i, j int) {
-	slice[i], slice[j] = slice[j], slice[i]
-}
-
-func DefaultRomanDictionary() romanDictionary {
+func defaultRomanDictionary() romanDictionary {
 	container := make([]romanSymbol, 7)
 	container[0] = romanOne
 	container[1] = romanFive
@@ -55,6 +44,13 @@ func (r romanSymbol) getLevel() int {
 	return -1
 }
 
+func (r romanSymbol) equals(other romanSymbol) bool {
+	if r.value == other.value && r.character == other.character {
+		return true
+	}
+	return false
+}
+
 func (r romanSymbol) isPowerOfTen() bool {
 	for i := 0; i < 4; i++ {
 		if int(math.Pow10(i)) == r.value {
@@ -62,4 +58,23 @@ func (r romanSymbol) isPowerOfTen() bool {
 		}
 	}
 	return false
+}
+
+func fromChar(s string) (romanSymbol, error) {
+	for _, v := range romanDict {
+		if v.character == s {
+			return v, nil
+		}
+	}
+	return romanOne, errors.New("Invalid Character")
+}
+
+func fromValue(k int) (romanSymbol, error) {
+	for _, v := range romanDict {
+		if v.value == k {
+			return v, nil
+		}
+	}
+	return romanOne, errors.New("Invalid Value in fromValue")
+
 }

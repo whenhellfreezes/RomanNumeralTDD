@@ -4,9 +4,22 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-TestIsMultiple	symbol_test.go	/^func TestIsMultiple(t *testing.T) {$/;"	f
-isMultiple	romanSymbol.go	/^func (r romanSymbol) isMultiple() bool {$/;"	f
+TestIsPowerOfTen	symbol_test.go	/^func TestIsPowerOfTen(t *testing.T) {$/;"	f
+TestLevelTest	symbol_test.go	/^func TestLevelTest(t *testing.T) {$/;"	f
+defaultRomanDictionary	romanSymbol.go	/^func defaultRomanDictionary() romanDictionary {$/;"	f
+fromChar	romanSymbol.go	/^func fromChar(s string) romanSymbol {$/;"	f
+getLevel	romanSymbol.go	/^func (r romanSymbol) getLevel() int {$/;"	f
+isPowerOfTen	romanSymbol.go	/^func (r romanSymbol) isPowerOfTen() bool {$/;"	f
 roman	application_test.go	/^package roman$/;"	p
 roman	romanSymbol.go	/^package roman$/;"	p
 roman	symbol_test.go	/^package roman$/;"	p
+romanDict	romanSymbol.go	/^	romanThousand    = romanSymbol{1000, "M"}$/;"	v
+romanDictionary	romanSymbol.go	/^type romanDictionary []romanSymbol$/;"	t
+romanFifty	romanSymbol.go	/^	romanTen         = romanSymbol{10, "X"}$/;"	v
+romanFive	romanSymbol.go	/^	romanOne         = romanSymbol{1, "I"}$/;"	v
+romanFiveHundred	romanSymbol.go	/^	romanHundred     = romanSymbol{100, "C"}$/;"	v
+romanHundred	romanSymbol.go	/^	romanFifty       = romanSymbol{50, "L"}$/;"	v
+romanOne	romanSymbol.go	/^var ($/;"	v
 romanSymbol	romanSymbol.go	/^type romanSymbol struct {$/;"	t
+romanTen	romanSymbol.go	/^	romanFive        = romanSymbol{5, "V"}$/;"	v
+romanThousand	romanSymbol.go	/^	romanFiveHundred = romanSymbol{500, "D"}$/;"	v
