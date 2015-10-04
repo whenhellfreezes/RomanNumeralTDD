@@ -4,13 +4,21 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-TestIsPowerOfTen	symbol_test.go	/^func TestIsPowerOfTen(t *testing.T) {$/;"	f
-TestLevelTest	symbol_test.go	/^func TestLevelTest(t *testing.T) {$/;"	f
+TestConvertToNumber	application_test.go	/^func TestConvertToNumber(t *testing.T) {$/;"	f
+TestConvertToRoman	application_test.go	/^func TestConvertToRoman(t *testing.T) {$/;"	f
+TestFromChar	symbol_test.go	/^func TestFromChar(t *testing.T) {$/;"	f
+TestMixin	symbol_test.go	/^func TestMixin(t *testing.T) {$/;"	f
+combine	romanSymbol.go	/^func combine(first romanSymbol, second romanSymbol) romanSymbol {$/;"	f
+convertToNumeric	conversions.go	/^func convertToNumeric(symbols string) (int, error) {$/;"	f
+convertToRoman	conversions.go	/^func convertToRoman(input int) string {$/;"	f
+decompose	romanSymbol.go	/^func decompose(i int) (leading int, power int) {$/;"	f
 defaultRomanDictionary	romanSymbol.go	/^func defaultRomanDictionary() romanDictionary {$/;"	f
-fromChar	romanSymbol.go	/^func fromChar(s string) romanSymbol {$/;"	f
-getLevel	romanSymbol.go	/^func (r romanSymbol) getLevel() int {$/;"	f
-isPowerOfTen	romanSymbol.go	/^func (r romanSymbol) isPowerOfTen() bool {$/;"	f
+equals	romanSymbol.go	/^func (r romanSymbol) equals(other romanSymbol) bool {$/;"	f
+fromChar	romanSymbol.go	/^func fromChar(s string, dict romanDictionary) (romanSymbol, error) {$/;"	f
+fromValue	romanSymbol.go	/^func fromValue(k int, dict romanDictionary) (romanSymbol, error) {$/;"	f
+mixinRomanDictionary	romanSymbol.go	/^func mixinRomanDictionary() romanDictionary {$/;"	f
 roman	application_test.go	/^package roman$/;"	p
+roman	conversions.go	/^package roman$/;"	p
 roman	romanSymbol.go	/^package roman$/;"	p
 roman	symbol_test.go	/^package roman$/;"	p
 romanDict	romanSymbol.go	/^	romanThousand    = romanSymbol{1000, "M"}$/;"	v

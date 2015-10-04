@@ -5,6 +5,17 @@ import (
 	"math"
 )
 
+func decompose(i int) (leading int, power int) {
+	power = int(math.Log10(float64(i)))
+	leading = int(float64(i) / math.Pow10(power))
+	return
+}
+
+type romanSymbol struct {
+	value     int
+	character string
+}
+
 var (
 	romanOne         = romanSymbol{1, "I"}
 	romanFive        = romanSymbol{5, "V"}
@@ -15,6 +26,39 @@ var (
 	romanThousand    = romanSymbol{1000, "M"}
 	romanDict        = defaultRomanDictionary()
 )
+
+func (r romanSymbol) equals(other romanSymbol) bool {
+	if r.value == other.value && r.character == other.character {
+		return true
+	}
+	return false
+}
+
+func fromChar(s string, dict romanDictionary) (romanSymbol, error) {
+	for _, v := range dict {
+		if v.character == s {
+			return v, nil
+		}
+	}
+	return romanOne, errors.New("Invalid Character")
+}
+
+func fromValue(k int, dict romanDictionary) (romanSymbol, error) {
+	for _, v := range dict {
+		if v.value == k {
+			return v, nil
+		}
+	}
+	return romanOne, errors.New("Invalid Value in fromValue")
+
+}
+
+func combine(first romanSymbol, second romanSymbol) romanSymbol {
+	var result romanSymbol
+	result.value = second.value - first.value
+	result.character = first.character + second.character
+	return result
+}
 
 type romanDictionary []romanSymbol
 
@@ -30,51 +74,23 @@ func defaultRomanDictionary() romanDictionary {
 	return container
 }
 
-type romanSymbol struct {
-	value     int
-	character string
-}
-
-func (r romanSymbol) getLevel() int {
-	for k, v := range romanDict {
-		if v.value == r.value {
-			return k + 1
+func mixinRomanDictionary() romanDictionary {
+	container := defaultRomanDictionary()
+	result := defaultRomanDictionary()
+	for _, v := range container {
+		if v.value != 1 {
+			leading, power := decompose(v.value)
+			offset := 0
+			if leading == 1 {
+				offset = -1
+			}
+			newSmybol, err := fromValue(int(math.Pow10(power+offset)), romanDict)
+			if err != nil {
+				panic("AGGGH")
+			}
+			result = append(result, combine(newSmybol, v))
 		}
-	}
-	return -1
-}
 
-func (r romanSymbol) equals(other romanSymbol) bool {
-	if r.value == other.value && r.character == other.character {
-		return true
 	}
-	return false
-}
-
-func (r romanSymbol) isPowerOfTen() bool {
-	for i := 0; i < 4; i++ {
-		if int(math.Pow10(i)) == r.value {
-			return true
-		}
-	}
-	return false
-}
-
-func fromChar(s string) (romanSymbol, error) {
-	for _, v := range romanDict {
-		if v.character == s {
-			return v, nil
-		}
-	}
-	return romanOne, errors.New("Invalid Character")
-}
-
-func fromValue(k int) (romanSymbol, error) {
-	for _, v := range romanDict {
-		if v.value == k {
-			return v, nil
-		}
-	}
-	return romanOne, errors.New("Invalid Value in fromValue")
-
+	return result
 }
