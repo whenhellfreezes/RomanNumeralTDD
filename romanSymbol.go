@@ -27,13 +27,6 @@ var (
 	romanDict        = defaultRomanDictionary()
 )
 
-func (r romanSymbol) equals(other romanSymbol) bool {
-	if r.value == other.value && r.character == other.character {
-		return true
-	}
-	return false
-}
-
 func fromChar(s string, dict romanDictionary) (romanSymbol, error) {
 	for _, v := range dict {
 		if v.character == s {
@@ -78,16 +71,24 @@ func mixinRomanDictionary() romanDictionary {
 	container := defaultRomanDictionary()
 	result := defaultRomanDictionary()
 	for _, v := range container {
+		//Every roman symbol but "I" has a way to combine with another symbol
 		if v.value != 1 {
 			leading, power := decompose(v.value)
+			//You can only have a 2 character symbol where the
+			//prefix character is a power of ten. If the leading
+			//digit of the higher symbol is 5 the two characters
+			//are of the same power. If it's 1 then they are
+			//different by a power.
 			offset := 0
 			if leading == 1 {
 				offset = -1
 			}
+			//Create the appropriate prefix character.
 			newSmybol, err := fromValue(int(math.Pow10(power+offset)), romanDict)
 			if err != nil {
 				panic("AGGGH")
 			}
+			//Add the 2 character symbol to the dictionary
 			result = append(result, combine(newSmybol, v))
 		}
 
