@@ -28,33 +28,24 @@ func convertToNumeric(symbols string) (int, error) {
 		return 0, nil
 	}
 	total := 0
-	parsedSymbols := make([]romanSymbol, numberOfChars)
-	var k int
-	//Go through all the characters
-	for k = 0; k < numberOfChars; k++ {
-		v := splitS[k]
-		//Determine the correct symbol
+	var previousValue int
+	for k, v := range splitS {
 		newestSymbol, err := fromChar(v, romanDict)
 		if err != nil {
 			return 0, err
 		}
-		parsedSymbols[k] = newestSymbol
-		//Either add or subtract the value of the symbol depending on whether the next symbol is larger or not
 		if k > 0 {
-			previousValue := parsedSymbols[k-1].value
 			if newestSymbol.value > previousValue {
 				total -= previousValue
 			} else {
 				total += previousValue
 			}
 		}
+		previousValue = newestSymbol.value
 		if k == numberOfChars-1 {
 			total += newestSymbol.value
 		}
 	}
-	//The above doesn't assure that we had a legal sequence. We check use
-	//our naive total and doulbe check against the convertToRoman
-	//function to see if the sequence was properly formed.
 	backofthebook := convertToRoman(total)
 	if backofthebook != symbols {
 		return 0, errors.New("Illegal Sequence")
